@@ -5,5 +5,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
 
 
+       
+       <!-- Déclaration du provider manager pour ExtendCommentProvider --> 
+       <bean id="notifygru-extendcomment.provider-manager" class="fr.paris.lutece.plugins.notifygru.modules.extendcomment.service.ExtendCommentProviderManager"> 
+           <constructor-arg type="java.lang.String" value="notifygru-extendcomment.provider-manager"/> 
+       </bean> 
+
 
 </beans>
