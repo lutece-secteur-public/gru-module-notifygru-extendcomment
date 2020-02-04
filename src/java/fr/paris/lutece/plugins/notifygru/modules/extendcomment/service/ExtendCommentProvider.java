@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import fr.paris.lutece.plugins.extend.modules.comment.business.Comment;
-import fr.paris.lutece.plugins.extend.modules.comment.business.config.CommentExtenderConfig;
 import fr.paris.lutece.plugins.extend.modules.comment.service.CommentService;
 import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentService;
 import fr.paris.lutece.plugins.extend.modules.comment.service.extender.CommentResourceExtender;
@@ -27,7 +26,7 @@ public class ExtendCommentProvider implements IProvider {
 	// PROPERTY KEY
     private static final String PROPERTY_SMS_SENDER_NAME = AppPropertiesService.getProperty( "notifygru-extendcomment.gruprovider.sms.sendername");
     private static final String PROPERTIE_DATE_FORMAT = AppPropertiesService.getProperty( "notifygru-extendcomment.dateformat", "dd-MM-yyyy" );
-
+	public static final String PROPERTY_ID_DEMAND_TYPE_CRM =AppPropertiesService.getProperty( "notifygru-extendcomment.crmDemandTypeId");
     // SERVICES
     private ICommentService _commentService = SpringContextService.getBean( CommentService.BEAN_SERVICE );
 	@Inject
@@ -89,9 +88,9 @@ public class ExtendCommentProvider implements IProvider {
 
 	@Override
 	public String provideDemandTypeId() {
-		 CommentExtenderConfig conf= (CommentExtenderConfig) _configService.find(_comment.getIdComment());
+		
 		 
-		return String.valueOf(conf.getIdExtender( ));
+		return   PROPERTY_ID_DEMAND_TYPE_CRM ;
 	}
 
 	@Override
