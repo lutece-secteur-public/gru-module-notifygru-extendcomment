@@ -38,19 +38,19 @@
         <dependency>
             <groupId>fr.paris.lutece</groupId>
             <artifactId>lutece-core</artifactId>
-            <version>[6.0.0,)</version>
+            <version>[6.0.0,7.9.9)</version>
             <type>lutece-core</type>
         </dependency>
           <dependency>
 	            <groupId>fr.paris.lutece.plugins</groupId>
 	            <artifactId>plugin-workflow</artifactId>
-	            <version>[4.3.2,)</version>
+	            <version>[4.3.2,6.9.9)</version>
 	            <type>lutece-plugin</type>
            </dependency>
             <dependency>
 	            <groupId>fr.paris.lutece.plugins</groupId>
 	            <artifactId>module-extend-comment</artifactId>
-	            <version>[1.1.15-SNAPSHOT,)</version>
+	            <version>[1.1.15-SNAPSHOT,1.9.9)</version>
 	            <type>lutece-plugin</type>
            </dependency>
          
@@ -59,7 +59,7 @@
     <properties>
         <componentName>notifygru-extendcomment</componentName>
         <jiraProjectName>GRUEXTDCOM</jiraProjectName>
-        <jiraComponentId></jiraComponentId>
+        <jiraComponentId />
     </properties>
     <scm>
         <connection>scm:git:https://github.com/lutece-platform/lutece-extends-module-extend-comment.git</connection>
