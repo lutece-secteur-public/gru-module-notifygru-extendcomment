@@ -3,14 +3,14 @@
     <parent>
         <artifactId>lutece-global-pom</artifactId>
         <groupId>fr.paris.lutece.tools</groupId>
-        <version>7.0.2</version>
+        <version>8.0.3</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
         <artifactId>module-notifygru-extendcomment</artifactId>
     <packaging>lutece-plugin</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
 
     	<name>Lutece notifygru extend comment module</name>
 
@@ -38,28 +38,48 @@
         <dependency>
             <groupId>fr.paris.lutece</groupId>
             <artifactId>lutece-core</artifactId>
-            <version>[6.0.0,7.9.9)</version>
+            <version>[8.0.0,)</version>
             <type>lutece-core</type>
         </dependency>
-          <dependency>
-	            <groupId>fr.paris.lutece.plugins</groupId>
-	            <artifactId>plugin-workflow</artifactId>
-	            <version>[4.3.2,6.9.9)</version>
-	            <type>lutece-plugin</type>
-           </dependency>
-            <dependency>
-	            <groupId>fr.paris.lutece.plugins</groupId>
-	            <artifactId>module-extend-comment</artifactId>
-	            <version>[1.1.15-SNAPSHOT,1.9.9)</version>
-	            <type>lutece-plugin</type>
-           </dependency>
-         
+        <dependency>
+            <groupId>fr.paris.lutece.plugins</groupId>
+            <artifactId>library-workflow-core</artifactId>
+            <version>[4.0.0,)</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.paris.lutece.plugins</groupId>
+            <artifactId>plugin-workflow</artifactId>
+            <version>[7.0.0,)</version>
+            <type>lutece-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>fr.paris.lutece.plugins</groupId>
+            <artifactId>plugin-extend</artifactId>
+            <version>[2.0.2-SNAPSHOT,)</version>
+            <type>lutece-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>fr.paris.lutece.plugins</groupId>
+            <artifactId>module-extend-comment</artifactId>
+            <version>[2.0.0-SNAPSHOT,)</version>
+            <type>lutece-plugin</type>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.paris.lutece.plugins</groupId>
+            <artifactId>library-lutece-unit-testing</artifactId>
+            <type>jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <properties>
         <componentName>notifygru-extendcomment</componentName>
-        <jiraProjectName>GRUEXTDCOM</jiraProjectName>
-        <jiraComponentId />
     </properties>
     <scm>
         <connection>scm:git:https://github.com/lutece-platform/lutece-extends-module-extend-comment.git</connection>
