@@ -4,20 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.inject.spi.CDI;
 
 import fr.paris.lutece.plugins.extend.modules.comment.business.Comment;
-import fr.paris.lutece.plugins.extend.modules.comment.service.CommentService;
 import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentService;
 import fr.paris.lutece.plugins.extend.modules.comment.service.extender.CommentResourceExtender;
-import fr.paris.lutece.plugins.extend.modules.comment.util.constants.CommentConstants;
-import fr.paris.lutece.plugins.extend.service.extender.config.IResourceExtenderConfigService;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.service.provider.IProvider;
 import fr.paris.lutece.plugins.workflowcore.service.provider.InfoMarker;
 import fr.paris.lutece.portal.service.i18n.I18nService;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppException;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
@@ -26,16 +21,23 @@ public class ExtendCommentProvider implements IProvider {
 	// PROPERTY KEY
     private static final String PROPERTY_SMS_SENDER_NAME = AppPropertiesService.getProperty( "notifygru-extendcomment.gruprovider.sms.sendername");
     private static final String PROPERTIE_DATE_FORMAT = AppPropertiesService.getProperty( "notifygru-extendcomment.dateformat", "dd-MM-yyyy" );
-	public static final String PROPERTY_ID_DEMAND_TYPE_CRM =AppPropertiesService.getProperty( "notifygru-extendcomment.crmDemandTypeId");
+	public static final String PROPERTY_ID_DEMAND_TYPE_CRM =AppPropertiesService.getProperty( "notifygru-extendcomment.crmDemandTypeId", "" );
     // SERVICES
-    private ICommentService _commentService = SpringContextService.getBean( CommentService.BEAN_SERVICE );
-	@Inject
-	@Named( CommentConstants.BEAN_CONFIG_SERVICE )
-	private IResourceExtenderConfigService _configService;
+    private final ICommentService _commentService = CDI.current( ).select( ICommentService.class ).get( );
 	 
      private final Comment _comment;
 
 	
+    /**
+     * Constructor: loads the comment the resource history points to
+     *
+     * @param beanProviderName
+     *            the complete id of the provider
+     * @param strProviderId
+     *            the id of the provider
+     * @param resourceHistory
+     *            the resource history of the comment
+     */
     public ExtendCommentProvider( String beanProviderName, String strProviderId, ResourceHistory resourceHistory)
     {
     	_comment = _commentService.findByPrimaryKey(resourceHistory.getIdResource( ));
@@ -46,46 +48,70 @@ public class ExtendCommentProvider implements IProvider {
           }
     }
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String provideCustomerConnectionId() {
 		return _comment.getLuteceUserName();
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String provideCustomerEmail() {
 		
 		return _comment.getEmail();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String provideCustomerId() {
 		
 		return _comment.getLuteceUserName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String provideCustomerMobilePhone() {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String provideDemandId() {
 		
 		return String.valueOf( _comment.getIdComment( ));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String provideDemandReference() {
 		
 		return CommentResourceExtender.EXTENDER_TYPE_COMMENT+String.valueOf(_comment.getIdComment());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String provideDemandSubtypeId() {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String provideDemandTypeId() {
 		
@@ -93,6 +119,9 @@ public class ExtendCommentProvider implements IProvider {
 		return   PROPERTY_ID_DEMAND_TYPE_CRM ;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Collection<InfoMarker> provideMarkerValues() {
 		
@@ -115,6 +144,9 @@ public class ExtendCommentProvider implements IProvider {
 		return collectionNotifyGruMarkers;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String provideSmsSender() {
 		return PROPERTY_SMS_SENDER_NAME ;
@@ -123,8 +155,8 @@ public class ExtendCommentProvider implements IProvider {
 	/**
      * static method for retrieving descriptions of available marks for a given comment
      * 
-     * @param nComentId
-     *            id of the nCommentExtender
+     * @param nCommentExtender
+     *            id of the comment extender
      * @return Collection of InfoMarker
      */
     public static Collection<InfoMarker> getProviderMarkerDescriptions( int nCommentExtender )
@@ -151,7 +183,9 @@ public class ExtendCommentProvider implements IProvider {
      * Construct a InfoMarker with value for given parameters
      * 
      * @param strMarker
+     *            the marker
      * @param strValue
+     *            the value
      * @return a InfoMarker
      */
     private static InfoMarker createMarkerValues( String strMarker, String strValue )
@@ -165,7 +199,11 @@ public class ExtendCommentProvider implements IProvider {
     * Construct a InfoMarker with descrition for given parameters
     * 
     * @param strMarker
+    *            the marker
+    * @param strDescriptionI18n
+    *            the i18n key of the description
     * @param strDescription
+    *            the description used when no i18n key is given
     * @return a InfoMarker
     */
    private static InfoMarker createMarkerDescriptions( String strMarker, String strDescriptionI18n, String strDescription )

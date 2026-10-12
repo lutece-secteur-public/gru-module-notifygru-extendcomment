@@ -34,6 +34,9 @@ public class ExtendCommentConstants {
     public static final String MESSAGE_MARK_PINNED="module.notifygru.extendcomment.task_notify_extendcomment.label_pinned";
     public static final String MESSAGE_MARK_IS_IMPORTANT="module.notifygru.extendcomment.task_notify_extendcomment.label_isImportant";
 
+    /**
+     * Constructor
+     */
     public ExtendCommentConstants()
     {
     	super();
